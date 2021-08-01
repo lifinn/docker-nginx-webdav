@@ -12,7 +12,7 @@ VOLUME        /var/webdav/data
 
 # Install nginx with php5 support
 RUN           apt-get update && \
-              DEBIAN_FRONTEND=noninteractive apt-get install -y nginx php5-fpm && \
+              DEBIAN_FRONTEND=noninteractive apt-get install -y nginx php-fpm && \
               rm -rf /var/lib/apt/lists/*
 
 # Install SabreDAV
@@ -36,5 +36,5 @@ RUN           ln -sf /dev/stdout /var/log/nginx/access.log && \
 # copy server.php for client -- sabredav communication
 COPY          web/server.php /var/webdav/server.php
 
-CMD           /install.sh && service php5-fpm start && nginx -g "daemon off;"
+CMD           /install.sh && service php-fpm start && nginx -g "daemon off;"
 
