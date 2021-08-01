@@ -1,5 +1,5 @@
-FROM          debian:jessie
-MAINTAINER    oliver@xama.us
+FROM          debian:stable
+MAINTAINER    fli.6@icloud.com
 
 # Default webdav user (CHANGE THIS!)
 ENV           WEBDAV_USERNAME admin
@@ -19,7 +19,7 @@ RUN           apt-get update && \
 RUN           php -r "readfile('http://getcomposer.org/installer');" > composer-setup.php && \
               php composer-setup.php --install-dir=/usr/bin --filename=composer && \
               php -r "unlink('composer-setup.php');" && \
-              composer require sabre/dav ~3.1.3 && \
+              composer require sabre/dav ~4.1.5 && \
               rm /usr/bin/composer
 
 # Set up entrypoint
