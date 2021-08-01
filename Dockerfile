@@ -12,7 +12,7 @@ VOLUME        /var/webdav/data
 
 # Install nginx with php5 support
 RUN           apt-get update && \
-              DEBIAN_FRONTEND=noninteractive apt-get install -y nginx php-fpm php-xml php-mbstring php-curl && \
+              DEBIAN_FRONTEND=noninteractive apt-get install -y nginx php-fpm php-xml php-mbstring php-curl unzip php-zip && \
               rm -rf /var/lib/apt/lists/*
 
 # Install SabreDAV
