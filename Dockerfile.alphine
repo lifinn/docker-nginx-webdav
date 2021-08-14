@@ -1,4 +1,4 @@
-FROM          debian:stable
+FROM          php:8.0.9-fpm-alpine
 
 # Default webdav user (CHANGE THIS!)
 ENV           WEBDAV_USERNAME admin
@@ -10,9 +10,9 @@ VOLUME        /var/webdav/public
 VOLUME        /var/webdav/data
 
 # Install nginx with php5 support
-RUN           apt-get update && \
-              DEBIAN_FRONTEND=noninteractive apt-get install -y nginx php-fpm php-xml php-mbstring php-curl unzip php-zip && \
-              rm -rf /var/lib/apt/lists/*
+RUN           apk --no-cache add nginx \
+              php8-xml php8-mbstring php8-curl \
+              unzip php8-zip
 
 # Install SabreDAV
 RUN           php -r "readfile('http://getcomposer.org/installer');" > composer-setup.php && \
@@ -35,5 +35,5 @@ RUN           ln -sf /dev/stdout /var/log/nginx/access.log && \
 # copy server.php for client -- sabredav communication
 COPY          web/server.php /var/webdav/server.php
 
-CMD           /install.sh && service php7.3-fpm start && nginx -g "daemon off;"
+CMD           /install.sh && php-fpm && nginx -g "daemon off;"
 
